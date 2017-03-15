@@ -9898,6 +9898,7 @@ joint.dia.Paper = joint.mvc.View.extend({
         // Hash of all cell views.
         this._views = {};
         // Reference to the paper owner document
+        //this.el=this.$el;
         this.$document = $(this.el.ownerDocument);
     },
 
