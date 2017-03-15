@@ -1,0 +1,23 @@
+{
+  "name": "msawdemo",
+  "version": "1.0.0",
+  "description": "msaw demo",
+  "main": "dagre.js",
+  "dependencies": {
+    "dagre": "^0.7.4",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "--"
+  },
+  "keywords": [
+    "msaw"
+  ],
+  "author": "ak",
+  "license": "ISC"
+}
