@@ -40,7 +40,7 @@
 	        type: 'basic.Rect',
 	        attrs: {
 	            'rect': { 'fill': 'red', 'stroke': 'black', 'follow-scale': true, width: 80, height: 40 },
-	            'text': { 'font-size': 14, 'ref-x': .5, 'ref-y': .5, ref: 'rect', 'y-alignment': 'middle', 'x-alignment': 'middle', 'text': 'yo baby' }
+	            'text': { 'font-size': 14, 'ref-x': .5, 'ref-y': .5, ref: 'rect', 'y-alignment': 'middle', 'x-alignment': 'middle', 'text': 'yo' }
 	        }
 	    }, joint.shapes.basic.Generic.prototype.defaults)
 	});
@@ -63,7 +63,7 @@
  			alert('cell view ' + cellView.model.id + ' was clicked');
  		else{
  			rect2.attr({
- 				text: {text: 'lala'}
+ 				text: {text: 'lala\nggrgret'}
  			});
  			rect2.resize( 100, 60 );
  			var jsongraph= graph.toJSON();
