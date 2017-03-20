@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <title>Grouped Layout</title>
+        <style>
+            @import url(../../style.css);
+            .node {
+            stroke: #fff;
+            stroke-width: 1.5px;
+            cursor: move;
+            }
+            .group {
+            stroke: #fff;
+            stroke-width: 1.5px;
+            cursor: move;
+            opacity: 0.7;
+            }
+            .link {
+            stroke: #7a4e4e;
+            stroke-width: 3px;
+            stroke-opacity: 1;
+            }
+            .label {
+            fill: white;
+            font-family: Verdana;
+            font-size: 25px;
+            text-anchor: middle;
+            cursor: move;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="../../extern/d3v4.js"></script>
+        <script src="../../cola.min.js"></script>
+        <script>
+            var width = 1000,
+            height = 400;
+            
+            var color = d3.scaleOrdinal(d3.schemeCategory20);
+            
+            var cola = cola.d3adaptor(d3)
+            .linkDistance(50)
+            .avoidOverlaps(true)
+            .handleDisconnected(false)
+            .size([width, height]);
+            
+            var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+            
+            
+            //document.addEventListener("DOMContentLoaded", function() {
+            //var textarea = document.getElementById("jsontext");
+            // function aaa(j)
+            //   {
+            d3.json("graphdata/msawData.json", function (error, graph) {
+                graph.nodes.forEach(function (v) {
+                  v.width = 100;
+                  v.height = 60;
+                });
+                graph.groups.forEach(function (g) { 
+                  g.height = 60;
+                  g.width = 100;
+                  g.padding = 0.01; 
+                });
+                //come back to this
+                cola.nodes(graph.groups)
+                    .links(graph.links)
+                    .start(100, 0, 50, 50);
+                
+                var group = svg.selectAll(".group")
+                    .data(graph.groups)
+                    .enter().append("rect")
+                    .attr("rx", 8).attr("ry", 8)
+                    .attr("class", "group")
+                    .style("fill", function (d, i) { return color(i); })
+                    .on('mouseup',function(d){
+                        d3.select(this)
+                        .transition()
+                        .attr("height", 240);
+                    });
+                
+                var link = svg.selectAll(".link")
+                    .data(graph.links)
+                    .enter().append("line")
+                    .attr("class", "link");
+                
+                // var pad = 20;
+                // var node = svg.selectAll(".node")
+                //     .data(graph.nodes)
+                //   .enter().append("rect")
+                //     .attr("class", "node")
+                //     .attr("width", function (d) { return d.width - 2 * pad; })
+                //     .attr("height", function (d) { return d.height - 2 * pad; })
+                //     .attr("rx", 5).attr("ry", 5)
+                //     .style("fill", function (d) { return color(graph.groups.length); });
+                //   
+                
+                  // .call(cola.drag)
+                    // .on('mouseup', function (d) {
+                    //     d.fixed = 0;
+                    //     cola.alpha(1);// fire it off again to satify gridify
+                    // })
+                    
+                
+                
+                // var pad = 20;
+                // var node = svg.selectAll(".node")
+                //     .data(graph.nodes)
+                //   .enter().append("foreignObject")
+                //     .attr("width", function (d) { return d.width - 2 * pad; })
+                //     .attr("height", function (d) { return d.height - 2 * pad; })
+                //     .attr("rx", 5).attr("ry", 5)
+                //     .style("fill", function (d) { return color(graph.groups.length); })
+                //       .append("body")
+                //       .attr("xmlns","http://www.w3.org/1999/xhtml")
+                //         .append("form")
+                //           .append("input")
+                //           .attr("type","text")
+                //     .call(cola.drag)
+                //     .on('mouseup', function (d) {
+                //         d.fixed = 0;
+                //         cola.alpha(1); // fire it off again to satify gridify
+                //     });
+                
+                var label = svg.selectAll(".label")
+                      .data(graph.groups)
+                      .enter()
+                      .append("text")
+                      .attr("class", "label")
+                      .text(function (d) { return d.gname; })
+                      .call(cola.drag);
+                
+                // node.append("title")
+                //       .text(function (d) { return d.gname; });
+                
+                cola.on("tick", function () {
+                    link.attr("x1", function (d) { return d.source.x; })
+                        .attr("y1", function (d) { return d.source.y; })
+                        .attr("x2", function (d) { return d.target.x; })
+                        .attr("y2", function (d) { return d.target.y; });
+                
+                    // node.attr("x", function (d) { return d.x - d.width / 2 + pad; })
+                    //     .attr("y", function (d) { return d.y - d.height / 2 + pad; });
+                        
+                    group.attr("x", function (d) { return d.bounds.x; })
+                         .attr("y", function (d) { return d.bounds.y; })
+                        .attr("width", function (d) { return d.bounds.width(); })
+                        .attr("height", function (d) { return d.bounds.height(); });
+                
+                    label.attr("x", function (d) { return d.x; })
+                         .attr("y", function (d) {
+                             var h = this.getBBox().height;
+                             return d.y + h/4;
+                         });
+                });
+            });
+            // }
+            // function updateG()
+            // {
+            //   var v=textarea.value;
+            //   var j=JSON.parse(v);
+            //   aaa(j);
+            // }
+            // textarea.onchange=updateG;
+        </script>
+    </body>
+</html>
+

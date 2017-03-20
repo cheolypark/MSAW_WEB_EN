@@ -1,0 +1,19 @@
+{    "nodes":[      {"name":"i11","width":60,"height":40},      {"name":"i12","width":60,"height":40},      {"name":"i13","width":60,"height":40},      {"name":"p11","width":60,"height":40}{"name":"p12","width":60,"height":40},      {"name":"p21","width":60,"height":40},      {"name":"p22","width":60,"height":40},      {"name":"c11","width":60,"height":40},      {"name":"c12","width":60,"height":40},      {"name":"c21","width":60,"height":40},      {"name":"c22","width":60,"height":40},      {"name":"o11","width":60,"height":40},      {"name":"o12","width":60,"height":40},      {"name":"o13","width":60,"height":40},      {"name":"i11","width":60,"height":40},      {"name":"i12","width":60,"height":40}    ],    "links":[      {"source":0,"target":1},      {"source":1,"target":2},      {"source":2,"target":3},      {"source":4,"target":1},      {"source":5,"target":2},      {"source":6,"target":1},      {"source":6,"target":2}    ],  "groups":[    {"leaves":[0,1,2], "gname":"Input"},    {"leaves":[3,4], "gname":"Process 1"},    {"leaves":[5,6], "gname":"Process 2"},    {"leaves":[11,12,13], "gname":"Output"},    {"leaves":[7,8], "gname":"Control 1"},    {"leaves":[9,10], "gname":"Control 2"},    {"leaves":[14,15], "gname":"Item"} ],
+
+"constraints":[
+    {"type":"alignment",
+     "axis":"x",
+     "offsets":[
+       {"node":"1", "offset":"0"},
+       {"node":"2", "offset":"0"},
+       {"node":"3", "offset":"0"}
+     ]},
+    {"type":"alignment",
+     "axis":"y",
+     "offsets":[
+       {"node":"0", "offset":"0"},
+       {"node":"1", "offset":"0"},
+       {"node":"4", "offset":"0"}
+     ]}
+  ]
+}
