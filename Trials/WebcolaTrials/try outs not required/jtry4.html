@@ -1,9 +1,8 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="utf-8" />
+      <header></header>
       <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
       <meta http-equiv="Pragma" content="no-cache" />
       <meta http-equiv="Expires" content="0" />
@@ -61,9 +60,65 @@
       <script src="../../cola.js"></script>
       <div id="maindiv" >
          <div id="consolediv">
-            <textarea rows="25" cols="25" id="tj" >
-          {"links":[{"source":0,"target":1},{"source":1,"target":2},{"source":2,"target":3},{"source":4,"target":1},{"source":5,"target":2},{"source":6,"target":1},{"source":6,"target":2}],"groups":[    {"gname":"Input","width":60,"height":40},{"gname":"Process 1","width":60,"height":40},{"gname":"Process 2","width":60,"height":40},{"gname":"Output","width":60,"height":40},{"gname":"Control 1","width":60,"height":40},{"gname":"Control 2","width":60,"height":40},{"gname":"Item","width":60,"height":40}],"ggroup":[{"leaves":[1,2]},{"leaves":[4,5]}],"constraints":[{"type":"alignment","axis":"y","offsets":[{"node":"0","offset":"-100"},{"node":"1","offset":"0"},{"node":"2","offset":"0"},{"node":"3","offset":"0"},{"node":"6","offset":"-100"}]},{"type":"alignment","axis":"x","offsets":[{"node":"0","offset":"-100"},{"node":"5","offset":"100"}]}]}
-            </textarea>
+            <textarea rows="25" cols="25" id="tj" >{
+    "nodes":[
+      {"name":"i11","width":60,"height":40},
+      {"name":"i12","width":60,"height":40},
+      {"name":"i13","width":60,"height":40},
+      {"name":"p11","width":60,"height":40},
+      {"name":"p12","width":60,"height":40},
+      {"name":"p21","width":60,"height":40},
+      {"name":"p22","width":60,"height":40},
+      {"name":"c11","width":60,"height":40},
+      {"name":"c12","width":60,"height":40},
+      {"name":"c21","width":60,"height":40},
+      {"name":"c22","width":60,"height":40},
+      {"name":"o11","width":60,"height":40},
+      {"name":"o12","width":60,"height":40},
+      {"name":"o13","width":60,"height":40},
+      {"name":"i11","width":60,"height":40},
+      {"name":"i12","width":60,"height":40}
+    ],
+    "links":[
+      {"source":0,"target":1},
+      {"source":1,"target":2},
+      {"source":2,"target":3},
+      {"source":4,"target":1},
+      {"source":5,"target":2},
+      {"source":6,"target":1},
+      {"source":6,"target":2}
+    ],
+  "groups":[
+    {"gname":"Input","width":60,"height":40},
+    {"gname":"Process 1","width":60,"height":40},
+    {"gname":"Process 2","width":60,"height":40},
+    {"gname":"Output","width":60,"height":40},
+    {"gname":"Control 1","width":60,"height":40},
+    {"gname":"Control 2","width":60,"height":40},
+    {"gname":"Item","width":60,"height":40}
+  ],
+  "ggroup":[
+    {"leaves":[1,2]},
+    {"leaves":[4,5]}
+  ],
+  "constraints":[
+    {"type":"alignment",
+     "axis":"y",
+     "offsets":[
+       {"node":"0", "offset":"-100"},
+       {"node":"1", "offset":"0"},
+       {"node":"2", "offset":"0"},
+       {"node":"3", "offset":"0"},
+       {"node":"6", "offset":"-100"}
+     ]},
+    {"type":"alignment",
+     "axis":"x",
+     "offsets":[
+       {"node":"0", "offset":"-100"},
+       {"node":"4", "offset":"100"}
+     ]}
+  ]
+}</textarea>
          </div>
          <div id="svgdiv"><div id="svgcontainer"></div>
          </div>
@@ -81,7 +136,7 @@
             .attr("height",500);
             var jobj = null;
             
-            d3.json("graphdata/msawData.json",function(err, j) {
+            d3.json("http://127.0.0.1:8000/msaw/",function(err, j) {
               jobj=j;
               render(jobj);
             });
@@ -134,6 +189,12 @@
                           .attr("height", function (g) { return g.bounds.height(); });
                     });
                 node.exit().remove();
+
+                function updateNode()
+                {
+                  node.data(graph.groups)
+                  .attr("width",function(d){d.gname.length * 20});
+                }
                 
                 var label = svg.selectAll(".label")
                   .data(graph.groups,function(d) 
