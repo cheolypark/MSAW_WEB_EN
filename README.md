@@ -7,10 +7,10 @@ Client app installation:
 4. cmd> npm install
 5. cmd> http-server
   it should display: 
-Starting up http-server, serving ./
-Available on:
-  http://127.0.0.1:8080
-  http://10.166.131.201:8080
+  Starting up http-server, serving ./
+  Available on:
+    http://127.0.0.1:8080
+    http://10.166.131.201:8080
 6. open http://localhost:8080/templates in the browser
 
 
