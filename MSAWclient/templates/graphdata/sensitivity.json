@@ -1,0 +1,40 @@
+{
+    "nodes":[
+      {"tag":"Input","attributes":[
+          {"name":"i11","iconType":1},
+          {"name":"i12","iconType":1},
+          {"name":"i13","iconType":1}
+      ]},
+      {"tag":"Process 1: Heater","attributes":[
+      ]},
+      {"tag":"Process 2: Roughing Mill","attributes":[
+      ]},
+      {"tag":"Process 3: Finishing Mill","attributes":[
+      ]},
+      {"tag":"Output","attributes":[
+          {"name":"o11","iconType":1},
+          {"name":"o12","iconType":1},
+          {"name":"o13","iconType":1}
+      ]},
+      {"tag":"Control 1","attributes":[
+          {"name":"c11","iconType":1},
+          {"name":"c12","iconType":1}
+      ]},
+      {"tag":"Control 2","attributes":[
+          {"name":"c21","iconType":1},
+          {"name":"c22","iconType":1}
+      ]},
+      {"tag":"Control 3","attributes":[
+          {"name":"c21","iconType":1},
+          {"name":"c22","iconType":1}
+      ]},
+      {"tag":"Item 1","attributes":[
+          {"name":"it1","iconType":1},
+          {"name":"it2","iconType":1}
+      ]},
+      {"tag":"Item 2","attributes":[
+          {"name":"it1","iconType":1},
+          {"name":"it2","iconType":1}
+      ]}
+    ]
+}

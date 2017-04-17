@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+      <header></header>
+      <title>Sensitivity Analysis</title>
+      <style>
+         @import url(../static/css/style.css);
+         .node {
+         stroke: #fff;
+         stroke-width: 1.5px;
+         }
+         .attnode {
+         
+         fill: #fff ;
+         stroke: #000;
+         stroke-width: 1px;
+         }
+         .background {
+         
+         fill: #f8f8f8 ;
+         stroke: #000;
+         stroke-width: 1px;
+         }
+         .group {
+         stroke: #fff;
+         stroke-width: 1.5px;
+         opacity: 0.3;
+         }
+         .link {
+         stroke: #7a4e4e;
+         stroke-width: 3px;
+         stroke-opacity: 1;
+         }
+         .label {
+         fill: black ;
+         font-family: Verdana;
+         font-size: 13px;
+         text-anchor: start;
+         }
+         .labelH {
+         fill: black ;
+         font-family: Verdana;
+         font-size: 20px;
+         text-anchor: middle;
+         }
+         .imgC { stroke: #7a4e4e;
+         stroke-width: 3px;
+
+         }
+         #consolediv{
+         float: left;
+         width: 15%;
+         }
+         #svgdiv {
+         float: left;
+         border: none;
+         width: 85%;
+         }
+         #maindiv{
+         }
+         .ui-widget-header,.ui-state-default{
+            background:#eee;
+            border: 1px solid #000;
+            font-weight: normal;
+         }
+         .dlg-no-title .ui-dialog-titlebar {
+            display: none;
+         }
+         div.blue{
+            background-color: #ddccff;
+            height: 35px;
+            padding: 5px;
+            stroke: #fff;
+            stroke-width: 1.5px;
+
+          border: 1.5px solid #9966ff;
+           border-radius: 5px;
+         }
+         input{
+            width: 60px;
+            float: right;
+            font-family: Verdana;
+            font-size: 12px;
+         }
+         svg{
+            border: none;
+         }
+         p{
+            display:inline;
+            fill: black ;
+            font-family: Verdana;
+            font-size: 12px;
+         }
+
+         .modal {
+             display:    none;
+             position:   fixed;
+             z-index:    1000;
+             top:        0;
+             left:       0;
+             height:     100%;
+             width:      100%;
+             background: rgba( 255, 255, 255, .5 ) 
+                         url('http://happywheelsaz.com/themes/happywheels_v2//resources/img/loading.gif') 
+                         50% 50% 
+                         no-repeat;
+         }
+
+         /* When the body has the loading class, we turn
+            the scrollbar off with overflow:hidden */
+         body.loading {
+             overflow: hidden;   
+         }
+
+         /* Anytime the body has the loading class, our
+            modal element will be visible */
+         body.loading .modal {
+             display: block;
+         }
+
+
+      </style>
+   </head>
+   <body style="background: #f6f6f6;">
+   
+
+      <link href="//code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+      
+      <script src="../node_modules/webcola/WebCola/cola.js"></script>
+      <script src="https://d3js.org/d3.v3.js"></script>  
+            <script src="../static/js/constants.js"></script>
+
+      <div id="maindiv" >
+         
+         <div id="consolediv" >
+                     <button id="rs" onclick="runSensitivity()" class="ui-button ui-widget ui-state-default ui-corner-all "   type=button >Run Sensitivity Analysis</button>
+                     <br>
+                     <br>
+                     <br>
+                     <br>
+                     <br>
+                     <p>Selection Mode</p>
+                    
+                     <div>
+                     <input id="rt" type="radio" style="float: left;" name="selMode" checked="checked" value="tSel"><p>Target Variable</p><br>
+                    <input  id="rf" type="radio" style="float: left;" name="selMode" value="fSel"><p>Free Variables</p><br>
+                    </div>
+         </div>
+         <div id="svgdiv">
+            
+               <script
+                  src="../static/js/f4sens.js" >
+               </script>
+         </div>
+      </div>
+      <div class="modal"><!-- Place at bottom of page --></div>
+
+   </body>
+</html>

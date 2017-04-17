@@ -1,0 +1,69 @@
+{
+    "nodes":[
+      {"tag":"Input","array":[
+          {"name":"i11","width":60,"height":40,"color":"#ffffff"},
+          {"name":"i12","width":60,"height":40,"color":"#ffffff"},
+          {"name":"i13","width":60,"height":40,"color":"#ffffff"}
+      ]},
+      {"tag":"Process 1","array":[
+      ]},
+      {"tag":"Process 2","array":[
+      ]},
+      {"tag":"Output","array":[
+          {"name":"o11","width":60,"height":40,"color":"#ffffff"},
+          {"name":"o12","width":60,"height":40,"color":"#ffffff"},
+          {"name":"o13","width":60,"height":40,"color":"#ffffff"}
+      ]},
+      {"tag":"Control 1","array":[
+          {"name":"c11","width":60,"height":40,"color":"#ffffff"},
+          {"name":"c12","width":60,"height":40,"color":"#ffffff"}
+      ]},
+      {"tag":"Control 2","array":[
+          {"name":"c21","width":60,"height":40,"color":"#ffffff"},
+          {"name":"c22","width":60,"height":40,"color":"#ffffff"}
+      ]},
+      {"tag":"Item","array":[
+          {"name":"it1","width":60,"height":40,"color":"#ffffff"},
+          {"name":"it2","width":60,"height":40,"color":"#ffffff"}
+      ]}
+    ],
+    "links":[
+      {"source":0,"target":1},
+      {"source":1,"target":2},
+      {"source":2,"target":3},
+      {"source":4,"target":1},
+      {"source":5,"target":2},
+      {"source":6,"target":1},
+      {"source":6,"target":2}
+    ],
+  "groups":[
+    {"name":"Input","width":60,"height":40,"color":"#ffffff"},
+    {"name":"Process 1","image":"o.png","width":60,"height":40,"color":"#ffffff"},
+    {"name":"Process 2","width":60,"height":40,"color":"#ffffff"},
+    {"name":"Output","width":60,"height":40,"color":"#ffffff"},
+    {"name":"Control 1","width":60,"height":40,"color":"#ffffff"},
+    {"name":"Control 2","width":60,"height":40,"color":"#ffffff"},
+    {"name":"Item","width":60,"height":40,"color":"#ffffff"}
+  ],
+  "ggroup":[
+    {"leaves":[1,2]},
+    {"leaves":[4,5]}
+  ],
+  "constraints":[
+    {"type":"alignment",
+     "axis":"y",
+     "offsets":[
+       {"node":"0", "offset":"-100"},
+       {"node":"1", "offset":"0"},
+       {"node":"2", "offset":"0"},
+       {"node":"3", "offset":"0"},
+       {"node":"6", "offset":"-100"}
+     ]},
+    {"type":"alignment",
+     "axis":"x",
+     "offsets":[
+       {"node":"0", "offset":"-100"},
+       {"node":"4", "offset":"100"}
+     ]}
+  ]
+}

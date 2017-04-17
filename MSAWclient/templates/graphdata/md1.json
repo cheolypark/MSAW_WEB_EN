@@ -1,0 +1,83 @@
+{
+    "nodes":[
+      {"tag":"Input","array":[
+          {"name":"i11","value":1},
+          {"name":"i12","value":1},
+          {"name":"i13","value":1}
+      ]},
+      {"tag":"Process 1: Heater","array":[
+      ]},
+      {"tag":"Process 2: Roughing Mill","array":[
+      ]},
+      {"tag":"Process 3: Finishing Mill","array":[
+      ]},
+      {"tag":"Output","array":[
+          {"name":"o11","value":1},
+          {"name":"o12","value":1},
+          {"name":"o13","value":1}
+      ]},
+      {"tag":"Control 1","array":[
+          {"name":"c11","value":1},
+          {"name":"c12","value":1}
+      ]},
+      {"tag":"Control 2","array":[
+          {"name":"c21","value":1},
+          {"name":"c22","value":1}
+      ]},
+      {"tag":"Control 3","array":[
+          {"name":"c21","value":1},
+          {"name":"c22","value":1}
+      ]},
+      {"tag":"Item 1","array":[
+          {"name":"it1","value":1},
+          {"name":"it2","value":1}
+      ]},
+      {"tag":"Item 2","array":[
+          {"name":"it1","value":1},
+          {"name":"it2","value":1}
+      ]}
+    ],
+    "links":[
+      {"source":0,"target":1},
+      {"source":1,"target":2},
+      {"source":2,"target":3},
+      {"source":3,"target":4},
+      {"source":5,"target":1},
+      {"source":6,"target":2},
+      {"source":7,"target":3},
+      {"source":1,"target":8},
+      {"source":2,"target":9},
+      {"source":8,"target":2},
+      {"source":9,"target":3}
+    ],
+  "constraints":[
+    {"type":"alignment",
+     "axis":"y",
+     "offsets":[
+       {"node":0, "offset":0},
+       {"node":1, "offset":0},
+       {"node":2, "offset":0},
+       {"node":3, "offset":0},
+       {"node":4, "offset":0},
+       {"node":5, "offset":50},
+       {"node":6, "offset":50},
+       {"node":7, "offset":50},
+       {"node":8, "offset":-150},
+       {"node":9, "offset":-150}
+     ]},
+    {"type":"alignment",
+     "axis":"x",
+     "offsets":[
+       {"node":0, "offset":0},
+       {"node":1, "offset":150},
+       {"node":2, "offset":300},
+       {"node":3, "offset":450},
+       {"node":4, "offset":600},
+       {"node":5, "offset":150},
+       {"node":6, "offset":300},
+       {"node":7, "offset":450},
+       {"node":8, "offset":225},
+       {"node":9, "offset":375}
+     ]}
+  ]
+}

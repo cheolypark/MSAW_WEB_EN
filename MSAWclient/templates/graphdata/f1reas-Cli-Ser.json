@@ -1,0 +1,21 @@
+{
+	"outputTargetAttributes":[
+		{"name":"length","value":500},
+		{"name":"thickness","value":7.3},
+		{"name":"weight","value":20}
+	],
+	"inputs":{
+		"totalCost":"",
+		"totalTime":"2",
+		"totalQualityRate":"6",
+		"totalEvaluationMeasure":""
+	},
+	"initialinput":{
+		"tag":"Input",
+		"array":[
+			{"name":"length","value":1.1},
+			{"name":"thickness","value":154},
+			{"name":"tmperature","value":14}
+		]
+	}
+}

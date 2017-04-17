@@ -1,0 +1,16 @@
+{
+	"outputTargetAttribute":{
+	    "tag":"Output",
+	    "attribute":"length"
+	},
+	
+	"inputs":{
+		"lessthan":"25",
+		"morethan":"100",
+		"totalCost":"",
+		"totalTime":"2",
+		"totalQualityRate":"6",
+		"totalEvaluationMeasure":""
+	},
+	"passcode":"msaw"
+}
