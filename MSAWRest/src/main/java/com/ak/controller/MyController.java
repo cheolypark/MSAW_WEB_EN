@@ -37,18 +37,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
-import org.supercsv.io.CsvBeanWriter;
-import org.supercsv.io.ICsvBeanWriter;
-import org.supercsv.prefs.CsvPreference;
 
 import com.ak.helper.AIEngineHelper;
-import com.ak.model.Book;
+import com.ak.model.Book1;
 import com.ak.model.ProcessModel;
 import com.ak.utils.ProjectConstants;
 import com.ak.utils.RestURIConstants;
 
 import msaw.engine.helper.Fun0_sim;
-import msaw.engine.helper.Fun2_optimal;
+import msaw.sim.core.MProcessSet;
+import msaw.sim.core.MProperty;
 
 @Controller
 public class MyController implements ServletContextAware{
@@ -71,18 +69,26 @@ public class MyController implements ServletContextAware{
 		System.out.println("dgfghjkjhgfdffghbjkjhgfdfghjk");
 		String ee="yo";
 		try{
-			File dir=new File("yo/");
+			File dir=new File("./yo/");
 			ee=dir.getAbsolutePath();
 			if(!dir.exists()){
 				ee=ee+dir.mkdir();
 			}
-			new Fun2_optimal().startOptimalValueFind(new HashMap<String, Object>(), "msaw");
+			//new Fun2_optimal().startOptimalValueFind(new MProcessSet(), "msaw");
 			
 		}
 		catch(Exception e){
 			ee=e.getMessage();
 		}
 		return ee;
+	}
+	@RequestMapping(value = RestURIConstants.POST_yo, method = RequestMethod.POST)
+	public @ResponseBody Book1 testYO(@RequestBody Book1 book){
+		logger.info("Get process model for optimal");
+		System.out.println("dgfghjkjhgfdffghbjkjhgfdfghjk");
+		book.booknames.add(null);
+		book.booknames.add(null);
+		return book;
 	}
 	
 	@RequestMapping(value = RestURIConstants.GET_optimalAllCases, method = RequestMethod.GET)
@@ -100,14 +106,17 @@ public class MyController implements ServletContextAware{
 	}
 
 	@RequestMapping(value = RestURIConstants.POST_getreasoning, method = RequestMethod.POST)
-	public @ResponseBody String postGetReasoning(@RequestBody Map<String, Object> map) {
+	public @ResponseBody String postGetReasoning(@RequestBody MProcessSet map) {
 		logger.info("reasoning data");
-		ProcessModel p=new ProcessModel();		
+		System.out.println("reasssssss");
+		System.out.println(map.toString());
+		ProcessModel p=new ProcessModel();
+		//return "fghhjhghgjhhkhjgh";
 		return p.getReasoning(map);
 		
 	}
 	@RequestMapping(value = RestURIConstants.POST_getsensitivity, method = RequestMethod.POST)
-	public @ResponseBody String postGetSensitivity(@RequestBody Map<String, Object> map) {
+	public @ResponseBody String postGetSensitivity(@RequestBody MProcessSet map) {
 		logger.info("sensitivity data");
 		ProcessModel p=new ProcessModel();		
 		return p.getSensitivity(map);
@@ -120,10 +129,10 @@ public class MyController implements ServletContextAware{
 		return aihelper.runPrediction(ProjectConstants.getFilePath(context),map);
 	}
 	@RequestMapping(value = RestURIConstants.POST_optimal, method = RequestMethod.POST)
-	public @ResponseBody String postToOptimal(@RequestBody Map<String, Object> map) {
+	public @ResponseBody String postToOptimal(@RequestBody MProcessSet map) {
 		logger.info("prediction chart data");
 		AIEngineHelper aihelper=new AIEngineHelper();
-		return aihelper.runOptimal(ProjectConstants.getFilePath(context),map);
+		return aihelper.runOptimal(map);
 	}
 	
 //	

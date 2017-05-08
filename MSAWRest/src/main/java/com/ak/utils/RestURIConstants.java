@@ -19,7 +19,8 @@ public class RestURIConstants {
 	public static final String GET_optimalChart = "/optimalChart/{pass}";
 	
 	public static final String GET_simulation = "/simulation";
-	
+
+	public static final String POST_yo = "/yo";
 	public static final String GET_testing = "/test";
 	
 	

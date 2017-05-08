@@ -13,6 +13,7 @@ import org.junit.internal.matchers.StringContains;
 import com.ak.helper.AIEngineHelper;
 
 import msaw.engine.helper.FilePaths;
+import msaw.sim.core.MProcessSet;
 
 public class ProcessModel
 {
@@ -83,11 +84,11 @@ public class ProcessModel
 		return s;
 	
 	}
-	public String getReasoning(Map<String, Object> map) {
+	public String getReasoning(MProcessSet map) {
 		// TODO Auto-generated method stub
 		return new AIEngineHelper().runReasoning(map);
 	}
-	public String getSensitivity(Map<String, Object> map) {
+	public String getSensitivity(MProcessSet map) {
 		// TODO Auto-generated method stub
 		return new AIEngineHelper().runSensitivity(map);
 	}

@@ -17,6 +17,7 @@ import msaw.engine.helper.Fun1_reas;
 import msaw.engine.helper.Fun2_optimal;
 import msaw.engine.helper.Fun3_prediction;
 import msaw.engine.helper.Fun4_sensitivity;
+import msaw.sim.core.MProcessSet;
 
 
 public class AIEngineHelper {
@@ -28,14 +29,15 @@ public class AIEngineHelper {
 
 	}
 	
-	public String runOptimal(String path, Map<String, Object> map) {
+	public String runOptimal(MProcessSet map) {
 		// TODO Auto-generated method stub
 
 
 		//call a method in ai engine with parameters: map- target attributes, input attributes
 		
 		System.out.println(map.toString());
-		String pass=map.get("passcode").toString();
+		String pass=map.passcode;
+		
 		new Fun2_optimal().startOptimalValueFind(map, pass);
 //		try{
 //			File dirFile = new File(path, "files");
@@ -75,11 +77,11 @@ public class AIEngineHelper {
 	  
 	}
 	
-	public String runReasoning(Map<String, Object> map){
+	public String runReasoning(MProcessSet map){
 		return new Fun1_reas().getReasoning(map);
 	}
 	
-	public String runSensitivity(Map<String, Object> map){
+	public String runSensitivity(MProcessSet map){
 		return new Fun4_sensitivity().getSensitivity(map);
 	}
 
