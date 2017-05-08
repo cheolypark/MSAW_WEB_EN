@@ -6,128 +6,11 @@
       <header></header>
       <title>Reasoning</title>
       <style>
-         @import url(../static/css/style.css);
-         .node {
-         stroke: #fff;
-         stroke-width: 1.5px;
-         }
-         .attnode {
-         
-         fill: #fff ;
-         stroke: #000;
-         stroke-width: 1px;
-         }
-         .background {
-         
-         fill: #f8f8f8 ;
-         stroke: #000;
-         stroke-width: 1px;
-         }
-         .group {
-         stroke: #fff;
-         stroke-width: 1.5px;
-         opacity: 0.3;
-         }
-         .link {
-         stroke: #7a4e4e;
-         stroke-width: 3px;
-         stroke-opacity: 1;
-         }
-         .label {
-         fill: black ;
-         font-family: Verdana;
-         font-size: 13px;
-         text-anchor: start;
-         }
-         .labelH {
-         fill: black ;
-         font-family: Verdana;
-         font-size: 20px;
-         text-anchor: middle;
-         }
-         .imgC { stroke: #7a4e4e;
-         stroke-width: 3px;
-
-         }
-         #consolediv{
-         float: left;
-         width: 15%;
-         }
-         #svgdiv {
-         float: left;
-         border: none;
-         width: 80%;
-         }
-         #maindiv{
-         }
-         .ui-widget-header,.ui-state-default{
-            background:#eee;
-            border: 1px solid #000;
-            font-weight: normal;
-         }
-         .dlg-no-title .ui-dialog-titlebar {
-            display: none;
-         }
-         div.blue{
-            background-color: #ddccff;
-            height: 35px;
-            padding: 5px;
-            stroke: #fff;
-            stroke-width: 1.5px;
-
-          border: 1.5px solid #9966ff;
-           border-radius: 5px;
-         }
-         textarea{
-
-            font-family: Verdana;
-            font-size: 13px;
-         }
-         input{
-            font-family: Verdana;
-            font-size: 12px;
-            width: 60px;
-            float: right;
-         }
-         svg{
-            border: none;
-         }
-         p{
-            display:inline;
-            fill: black ;
-            font-family: Verdana;
-            font-size: 12px;
-         }
-
-         .modal {
-             display:    none;
-             position:   fixed;
-             z-index:    1000;
-             top:        0;
-             left:       0;
-             height:     100%;
-             width:      100%;
-             background: rgba( 255, 255, 255, .5 ) 
-                         url('http://happywheelsaz.com/themes/happywheels_v2//resources/img/loading.gif') 
-                         50% 50% 
-                         no-repeat;
-         }
-
-         /* When the body has the loading class, we turn
-            the scrollbar off with overflow:hidden */
-         body.loading {
-             overflow: hidden;   
-         }
-
-         /* Anytime the body has the loading class, our
-            modal element will be visible */
-         body.loading .modal {
-             display: block;
-         }
-
+        @import url(../static/css/style.css);
+        @import url(../static/css/style2.css);
       </style>
    </head>
-   <body style="background: #f6f6f6;">
+   <body >
    
       <link href="//code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -137,12 +20,16 @@
       <script src="https://d3js.org/d3.v3.js"></script>  
       <script src="../static/js/constants.js"></script>
       <div id="maindiv" >
-         <div id="consolediv" style="padding-right: 5px;" >
+      <div class="heading"><h3>MSAW ENGINE V0.1</h3><h3>Function 1: Reasoning</h3></div>
+         <div id="svgdiv" style=" width: 1350px; height: 800px; " >
+            
+         </div>
+         <div id="consolediv" >
 
             <form name="myform" >
-                     <button id="rs" onclick="runReasoning()" class="ui-button ui-widget ui-state-default ui-corner-all " style="width: 100%;"  type=button >Run Reasoning</button>
-                     <br>
-                     <textarea id="consoletextinput" rows="30" style="width: 100%">
+                     <button id="rs" onclick="runReasoning()" class="ui-button ui-widget ui-state-default ui-corner-all " style="border-color: #ccc; border-width: 3px; min-height: 50px; width: 100%;"  type=button >Run Reasoning</button>
+                     
+                     <textarea id="consoletextinput" cols="60"  style="min-height: 750px; ">
                      </textarea> 
                      <br>
                     <!--  <div class="blue "><p>Cost: </p><input type="text" id="cost" placeholder=""></div>
@@ -150,10 +37,6 @@
                      <div class=" blue "><p>Quality Rate: </p><input type="text" id="qrate" placeholder=""></div>
                      <div class="blue " style="height: 45px"><p>Evaluation Measure: </p><input type="text" id="emeasure" placeholder=""></div> -->
             </form>
-         </div>
-
-         <div id="svgdiv">
-            
          </div>
       </div>
   		<script
@@ -163,3 +46,4 @@
 
    </body>
 </html>
+

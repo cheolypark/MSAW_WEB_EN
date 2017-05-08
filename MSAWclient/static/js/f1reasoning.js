@@ -5,8 +5,8 @@ var initialinput="";
 
 
 
-var width = 1530,
-    height = 250,
+var width = 1350,
+    height = 800,
     imageScale = 0.25;
 
 var cola = cola.d3adaptor(d3)
@@ -15,22 +15,24 @@ var cola = cola.d3adaptor(d3)
     .size([width, height]);
 
 var svg = d3.select("#svgdiv").append("svg")
-    .attr("height", 900)
-    .attr("width", 1350)
+    .attr("height", height)
+    .attr("width", width)
     .attr("pointer-events", "all")
-    .attr("transform","scale(0.6)");
+    //.attr("transform","scale(0.6)")
+    ;
 
 svg.append('rect')
     .attr('class', 'background')
     .attr('width', "100%")
     .attr('height', "100%")
-    .style('border',"none")
+    .style('border',"nones")
     .call(d3.behavior.zoom().on("zoom", redraw))
     //.call(cola.drag)
     ;
 
 var vis = svg
     .append('g')
+    .attr("id","g")
     ;
 
 var nodeMouseDown = false;
@@ -42,13 +44,14 @@ function redraw() {
 }
 
 
-var node = vis.selectAll(".node");
+var node = vis.selectAll(".imgC");
+var nodeB = vis.selectAll(".node");
 var attnode = vis.selectAll(".attnode");
 var link = vis.selectAll(".link");
 var group = vis.selectAll(".group");
 var label = vis.selectAll(".label");
 var labelH = vis.selectAll(".labelH");
-var img = vis.selectAll(".imgC");
+//var img = vis.selectAll(".imgC");
 
 var gpad = 5;
 var pad=0;
@@ -56,7 +59,8 @@ var pad=0;
 var constraintsData =  [
     {"type":"alignment",
      "axis":"y",
-     "offsets":[
+     "offsets":
+     [
        {"node":0, "offset":0},//sg
        {"node":1, "offset":50},//sga
        {"node":2, "offset":300},//htrcon
@@ -71,11 +75,31 @@ var constraintsData =  [
        {"node":11, "offset":70},//fmcona
        {"node":12, "offset":0},//fm
        {"node":13, "offset":0},//fma
-       {"node":14, "offset":-300},//est
-       {"node":15, "offset":-260},//esta
-       {"node":16, "offset":-180},//total
-       {"node":17, "offset":-140}//totala
+       {"node":14, "offset":-280},//est
+       {"node":15, "offset":-240},//esta	
+       {"node":16, "offset":-140},//total
+       {"node":17, "offset":-100}//totala
      ]},
+     // [
+     //   {"node":0, "offset":280},//sg
+     //   {"node":1, "offset":330},//sga
+     //   {"node":2, "offset":580},//htrcon
+     //   {"node":3, "offset":350},//htrcona
+     //   {"node":4, "offset":280},//htr
+     //   {"node":5, "offset":10},//hta
+     //   {"node":6, "offset":580},//rmcon
+     //   {"node":7, "offset":350},//rmcona
+     //   {"node":8, "offset":280},//rm
+     //   {"node":9, "offset":10},//rma
+     //   {"node":10, "offset":580},//fmcon
+     //   {"node":11, "offset":350},//fmcona
+     //   {"node":12, "offset":280},//fm
+     //   {"node":13, "offset":280},//fma
+     //   {"node":14, "offset":0},//est
+     //   {"node":15, "offset":40},//esta	
+     //   {"node":16, "offset":140},//total
+     //   {"node":17, "offset":180}//totala
+     // ]},
     {"type":"alignment",
      "axis":"x",
      "offsets":[
@@ -116,10 +140,10 @@ var linksData=[
       
 ];
 
-var hHeight=50;
-var hWidth=200;
-var aHeight=20;
-var aWidth=245;
+var hHeight=40;
+var hWidth=230;
+var aHeight=17;
+var aWidth=230;
 
 
 
@@ -140,6 +164,7 @@ var allNodesData2;
 
 //d3.json(BACKEND_URL+"simulation", function(err, j) {
 d3.json(BACKEND_URL+"simulation", function(err, j) {
+	console.info(JSON.stringify(j));
     allNodesData2 = j.processes;
     //var initialinput=JSON.stringify(allNodesData[0]);
     //console.info(JSON.stringify(j));
@@ -152,6 +177,7 @@ d3.json(BACKEND_URL+"simulation", function(err, j) {
 render2();
 });
 
+vis.attr("transform","translate(214.453125,-283) scale(1)");
 // d3.json("graphdata/process-model.json", function(err, j) {
 //     var allNodesData = j.nodes;
 //     initialinput=JSON.stringify(allNodesData[0]);
@@ -391,6 +417,30 @@ function render2(){
      //link.exit().remove();
 
     node = node.data(procNamesData)
+        .enter()
+        .append("image")
+        .attr("class", "imgC")
+        .attr("width", function(d) {
+            return d.width;
+        })
+        .attr("height", function(d) {
+            return d.height;
+        })
+        .attr("xlink:href", function(d) {
+           // var url = "http://www.timepasssms.com/images/big/Abstract/big_1258050901.jpg";
+            var url = "../static/img/metalblueback.jpeg";
+            var simg = this;
+            var img = new Image();
+            img.onload = function() {
+                //simg.setAttribute("width", d.width);
+                //simg.setAttribute("rx", "5px");
+                simg.setAttribute("preserveAspectRatio", "none");
+            }
+            return img.src = url;
+        });
+
+
+    nodeB = nodeB.data(procNamesData)
         .enter().append("rect")
         .attr("width", function(d) {
             return d.width;
@@ -398,13 +448,12 @@ function render2(){
         .attr("height", function(d) {
             return d.height;
         })
-        // .attr("rx", 5).attr("ry", 5)
+         .attr("rx", 3).attr("ry", 3)
         .attr("class", "node")
-        .style("fill", function(d, i) {
-            return d.color;
-        })
+        .attr("style", "fill-opacity:0.05; stroke: #00004d; stroke-width: 3px; stroke-opacity:0.95;")
       .call(cola.drag)
     ;
+
 
     attnode = attnode.data(attributesData)
         .enter().append("rect")
@@ -427,7 +476,7 @@ function render2(){
                 if(index==-1)
                 {
                     console.info("adding "+d.group+"."+d.name);
-                    data["targetVariables"].push({name:d.group+"."+d.name, value:0});
+                    data["targetVariables"].push({name:d.group+"."+d.name, value:"0"});
                 }
                 else{
                     removeElement(data["targetVariables"],index);
@@ -436,14 +485,6 @@ function render2(){
                 $('#consoletextinput').val(JSON.stringify(data["targetVariables"]));
 
                 d3.select(this).transition()
-    //             .attr("width", function(d) {
-    // //                if(contains(data["OutputAttributes"],d.name))
-    //   //                  return 110;
-    //                 return d.width;
-    //             })
-    //             .attr("height", function(d) {
-    //                 return d.height;
-    //             })
                 .style("fill", function(d, i) {
                     var index=getIndex(data["targetVariables"],d.group+"."+d.name);
                     if(index==-1)
@@ -512,6 +553,15 @@ function tick2() {
         .attr("y", function(d) {
             return d.y - d.height / 2 + pad;
         });
+
+    nodeB
+        .attr("x", function(d) {
+            return d.x - d.width / 2 + pad;
+        })
+        .attr("y", function(d) {
+            return d.y - d.height / 2 + pad;
+        });
+            
     attnode
         .attr("x", function(d) {
             return d.x - d.width / 2 + pad;
@@ -606,17 +656,17 @@ $('#consoletextinput').bind('input propertychange', function() {
 });
 function runReasoning()
 {
-    if(data["targetVariables"].length==0){
-        alert("Output attributes not set for reasoning.");
-    }
-    else{
-        // data["inputs"]["totalCost"]= $("#cost").val();
-        // data["inputs"]["totalTime"]= $("#time").val();
-        // data["inputs"]["totalQualityRate"]= $("#qrate").val();
-        // data["inputs"]["totalEvaluationMeasure"]= $("#emeasure").val();
-         getReasoning();
-    }
-    //console.info(JSON.stringify(data));
+    // if(data["targetVariables"].length==0){
+    //     alert("Output attributes not set for reasoning.");
+    // }
+    // else{
+    //     // data["inputs"]["totalCost"]= $("#cost").val();
+    //     // data["inputs"]["totalTime"]= $("#time").val();
+    //     // data["inputs"]["totalQualityRate"]= $("#qrate").val();
+    //     // data["inputs"]["totalEvaluationMeasure"]= $("#emeasure").val();
+          getReasoning();
+    // }
+    // //console.info(JSON.stringify(data));
 }
 
 $body = $("body");
@@ -625,7 +675,7 @@ function getReasoning()
 {
     var postingData=JSON.parse(initialinput);
     postingData["targetVariables"]=data["targetVariables"];
-$body.addClass("loading");
+	$body.addClass("loading");
     
     console.info("posting data: "+JSON.stringify(postingData));
     d3.xhr(BACKEND_URL+"reasoning")
@@ -633,19 +683,29 @@ $body.addClass("loading");
     .post(
         JSON.stringify(postingData),
         function(err, rawData){
-            console.info(rawData.response);
+            
+            $body.removeClass("loading"); 
+            console.info("raw data:         "+rawData.response);
+
             j2= JSON.parse(rawData.response);
             allNodesData=j2.processes;
             updateAttrib(allNodesData);
-            $body.removeClass("loading"); 
             update();
         }
     );
-   // d3.json("graphdata/pmfromreas.json",function(err, j) { 
-   //   console.info(JSON.stringify(j));
-   //     allNodesData=j.processes;
-   //     updateAttrib(allNodesData);
-   //  });
+
+    // var postingData={"bookname":"lalala"};
+    // console.info("posting data: "+JSON.stringify(postingData));
+    // d3.xhr(BACKEND_URL+"yo")
+    // .header("Content-Type", "application/json")
+    // .post(
+    //     JSON.stringify(postingData),
+    //     function(err, rawData){
+            
+    //         $body.removeClass("loading"); 
+    //         console.info("raw data:         "+rawData.response);
+    //     }
+    // );
 }
 
 function update() {

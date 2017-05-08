@@ -540,7 +540,7 @@ function renderChart(caseValues)
         "end": no,
         "step": (no<12 ? 1 : no/10),
         "names": ["Case Values"],
-        "values": [caseValues]
+        "values": [[23,46,7,8,4,5,7,5,4,3,3]]
     };
 
 
