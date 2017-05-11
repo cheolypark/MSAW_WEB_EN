@@ -3,8 +3,8 @@
 	<name>api</name>
 	<comment></comment>
 	<projects>
-		<project>MSAW_ENGINE</project>
 		<project>MSAW_SIM</project>
+		<project>MSAW_ENGINE</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

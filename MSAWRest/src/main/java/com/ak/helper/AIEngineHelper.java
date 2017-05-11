@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import com.ak.model.ProcessModel;
 
+import msaw.engine.helper.FilePaths;
 import msaw.engine.helper.Fun1_reas;
 import msaw.engine.helper.Fun2_optimal;
 import msaw.engine.helper.Fun3_prediction;
@@ -29,53 +30,71 @@ public class AIEngineHelper {
 
 	}
 	
-	public String runOptimal(MProcessSet map) {
+	public String runOptimal(final MProcessSet map) {
 		// TODO Auto-generated method stub
-
-
-		//call a method in ai engine with parameters: map- target attributes, input attributes
 		
 		System.out.println(map.toString());
-		String pass=map.passcode;
 		
-		new Fun2_optimal().startOptimalValueFind(map, pass);
-//		try{
-//			File dirFile = new File(path, "files");
-//	        if (!dirFile.exists()) {
-//	        	dirFile.mkdir();
-//	        }
-//			File predFile = new File(path, "optimal-"+pass+"-chart.txt");
-//	        if (!predFile.exists()) {
-//	        	predFile.createNewFile();
-//	        }
-//	        FileWriter fw = new FileWriter(predFile.getAbsoluteFile());
-//	        BufferedWriter bw= new BufferedWriter(fw);
-//	        bw.write("{\"ready\":1,");
-//	        bw.write("\"values\":[25.3,65.3,51,15.6,65.3],\"passcode\":\""+pass+"\"}");
-//
-//	        bw.close();
-//	        fw.close();
-//	        
-//	        File predCaseFile; 
-//	        
-//	        for(int i=0;i<5;i++)
-//	        {
-//	        	fw = new FileWriter(predFile.getAbsoluteFile());
-//		        bw= new BufferedWriter(fw);
-//		        
-//	        	predCaseFile= new File(path, "optimal-"+pass+"-"+i+".txt");
-//		        predFile.createNewFile();
-//		        bw.write(getSimulation());		        
-//
-//		        bw.close();
-//		        fw.close();
-//
-//	        }
-//	        
-
+		final String pass=map.passcode;
+		File file=new File(FilePaths.F2_OPT_PROCESSSETS()+"optimization-"+pass+".txt");
+		//String s=file.getAbsolutePath();
+		if(!file.exists())
+		{
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					new Fun2_optimal().startOptimalValueFind(map, pass);
+				}
+			}).start();
 			return "{\"success\":1}";
-	  
+		}
+		else
+		{
+			return "{\"success\":2}";
+		}
 	}
+	public String getOptimalModelfromFile(String pass)
+	{
+		String s="";
+		try{
+			File optFile = new File(FilePaths.F2_OPT_PROCESSSETS()+"optimization-"+pass+".txt");
+	        if (!optFile.exists()) {
+	        	 //does not exist
+	        }
+
+	        System.out.println(pass);
+	        System.out.println(optFile.exists());
+	        System.out.println(optFile);
+	        FileReader fr = new FileReader(optFile.getAbsoluteFile());
+	        BufferedReader br= new BufferedReader(fr);
+	        String sCurrentLine="";
+	        while ((sCurrentLine = br.readLine()) != null) {
+				s=s+(sCurrentLine);
+			}
+	        System.out.println(s);
+	        br.close();
+	        fr.close();
+	        
+	        new JSONObject(s);
+	        return s;
+        
+	    } 
+		catch (IOException e){
+			e.printStackTrace();
+			 //error in file.
+		}
+		catch( JSONException e){
+	    	e.printStackTrace();
+
+			
+	    }
+		return s;
+	
+	}
+	
+	
 	
 	public String runReasoning(MProcessSet map){
 		return new Fun1_reas().getReasoning(map);
@@ -85,12 +104,8 @@ public class AIEngineHelper {
 		return new Fun4_sensitivity().getSensitivity(map);
 	}
 
-	public String getSimulation() {
-		
-		return ""
-				+ "{    \"nodes\":[      {\"tag\":\"Input\",\"attributes\":[          {\"name\":\"i"+((int)(Math.random()*10))+""+((int)(Math.random()*10))+"\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"},          {\"name\":\"i"+((int)(Math.random()*10))+"2\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"},          {\"name\":\"i"+((int)(Math.random()*10))+"3\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"}      ]},      {\"tag\":\"Process "+((int)(Math.random()*10))+": Heater\",\"attributes\":[      ]},      {\"tag\":\"Process 2: Roughing Mill\",\"attributes\":[      ]},      {\"tag\":\"Process 3: Finishing Mill\",\"attributes\":[      ]},      {\"tag\":\"Output\",\"attributes\":[          {\"name\":\"o"+((int)(Math.random()*10))+""+((int)(Math.random()*10))+"\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"},          {\"name\":\"o"+((int)(Math.random()*10))+"2\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"},          {\"name\":\"o"+((int)(Math.random()*10))+"3\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"}      ]},      {\"tag\":\"Control "+((int)(Math.random()*10))+"\",\"attributes\":[          {\"name\":\"c"+((int)(Math.random()*10))+""+((int)(Math.random()*10))+"\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"},          {\"name\":\"c"+((int)(Math.random()*10))+"2\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"}      ]},      {\"tag\":\"Control 2\",\"attributes\":[          {\"name\":\"c2"+((int)(Math.random()*10))+"\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"},          {\"name\":\"c22\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"}      ]},      {\"tag\":\"Control 3\",\"attributes\":[          {\"name\":\"c2"+((int)(Math.random()*10))+"\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"},          {\"name\":\"c22\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"}      ]},      {\"tag\":\"Item "+((int)(Math.random()*10))+"\",\"attributes\":[          {\"name\":\"it"+((int)(Math.random()*10))+"\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"},          {\"name\":\"it2\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"}      ]},      {\"tag\":\"Item 2\",\"attributes\":[          {\"name\":\"it"+((int)(Math.random()*10))+"\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"},          {\"name\":\"it2\",\"value\":"+((int)(Math.random()*10))+",\"iconType\":"+((int)(Math.random()*10))+"}      ]}    ]}"
-				+ "";
-	}
-
+	
+	
+	
 
 }

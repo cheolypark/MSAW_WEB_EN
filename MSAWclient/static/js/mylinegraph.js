@@ -185,7 +185,7 @@ function LineGraph(argsMap) {
 	// functions we use to display and interact with the graphs and lines
 	var graph, x, yLeft, yRight, xAxis, yAxisLeft, yAxisRight, yAxisLeftDomainStart, linesGroup, linesGroupText, lines, lineFunction, lineFunctionSeriesIndex = -1;
 	var yScale = 'linear'; // can be pow, log, linear
-	var scales = [['linear','Linear']];
+	var scales = [['linear',' ']];
 	var hoverContainer, hoverLine, hoverLineXOffset, hoverLineYOffset, hoverLineGroup;
 	var legendFontSize = 12; // we can resize dynamically to make fit so we remember it here
 

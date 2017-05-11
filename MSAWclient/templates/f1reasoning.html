@@ -1,49 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8" />
-       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-      <header></header>
-      <title>Reasoning</title>
-      <style>
-        @import url(../static/css/style.css);
-        @import url(../static/css/style2.css);
-      </style>
-   </head>
-   <body >
-   
-      <link href="//code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-      <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-      
-      <script src="../node_modules/webcola/WebCola/cola.js"></script>
-      <script src="https://d3js.org/d3.v3.js"></script>  
-      <script src="../static/js/constants.js"></script>
-      <div id="maindiv" >
-      <div class="heading"><h3>MSAW ENGINE V0.1</h3><h3>Function 1: Reasoning</h3></div>
-         <div id="svgdiv" style=" width: 1350px; height: 800px; " >
-            
-         </div>
-         <div id="consolediv" >
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <header></header>
+    <title>Reasoning</title>
+    <!-- Css libraries -->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <link href="//code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <!-- Custom css -->
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/style2.css">
+</head>
 
-            <form name="myform" >
-                     <button id="rs" onclick="runReasoning()" class="ui-button ui-widget ui-state-default ui-corner-all " style="border-color: #ccc; border-width: 3px; min-height: 50px; width: 100%;"  type=button >Run Reasoning</button>
-                     
-                     <textarea id="consoletextinput" cols="60"  style="min-height: 750px; ">
-                     </textarea> 
-                     <br>
-                    <!--  <div class="blue "><p>Cost: </p><input type="text" id="cost" placeholder=""></div>
-                     <div class="blue "><p>Time: </p><input type="text" id="time" placeholder=""></div>
-                     <div class=" blue "><p>Quality Rate: </p><input type="text" id="qrate" placeholder=""></div>
-                     <div class="blue " style="height: 45px"><p>Evaluation Measure: </p><input type="text" id="emeasure" placeholder=""></div> -->
-            </form>
-         </div>
-      </div>
-  		<script
-      src="../static/js/f1reasoning.js" >
- 		</script>
-      <div class="modal"><!-- Place at bottom of page --></div>
+<body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script src="../node_modules/webcola/WebCola/cola.js"></script>
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <!-- custom js -->
+    <script src="../static/js/constants.js"></script>
+    
 
-   </body>
+    <div id="maindiv">
+        <div class="heading">
+            <h3 class="center-align">MSAW ENGINE V0.1</h3>
+            <h4 class="center-align">Function 1: Reasoning</h4>
+        </div>
+        <div class="container-fluid box-wrapper">
+            <div class="row">
+                <div class="col l9">
+                    <div id="svgdiv" class="center-align">
+	                    <script type="text/javascript">
+					   		var svgwidth = $("#svgdiv").width();
+					    </script>
+					    <script src="../static/js/common.js"></script>
+					    <script src="../static/js/f1reasoning.js"></script>
+                    </div>
+                </div>
+                <div class="col l3">
+                    <div id="consolediv" class="center-align">
+                        <form name="myform">
+                        	<span class="button" onclick="runReasoning()">
+                            <p class="but">Run Reasoning</p>
+                            </span>
+                            <br>
+                             <span class="button" style="display: block; float: right; height: 50px; width: 100%;" onclick="downloadAnalysis()">
+                              <p style=" font-size: 18px; " class="but">Download Results</p>
+                            <br>
+                            <textarea cols="65" id="consoletextinput"></textarea>
+                            <br>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal">
+    </div>
+    <!-- js libraries -->
+    
+</body>
 </html>
-
