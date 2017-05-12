@@ -36,7 +36,8 @@
                        <script type="text/javascript">
                         var svgwidth = $("#svgdiv").width();
                    </script>
-                   <script src="../static/js/common.js"></script>
+                   <script src="../static/js/common.js"></script>  
+                   <script src="../static/js/newlinegraph.js"></script>
                    <script src="../static/js/f3prediction.js"></script>
                     </div>
                 </div>
@@ -62,10 +63,10 @@
                                </span>
                                <br>
                               <div >
-                                 <span class="button" style="float: left; width: 45%;" onclick="showChart()">
+                                 <span id="showButton" class="button" style="display: none; float: left; width: 45%;" onclick="showChart()">
                                   <p style=" font-size: 18px; " class="but">Show Results</p>
                                   </span>
-                                 <span class="button" style="float: right; width: 50%;" onclick="downloadAnalysis()">
+                                 <span id="downloadButton" class="button" style="display: none; float: right; width: 50%;" onclick="downloadAnalysis()">
                                   <p style=" font-size: 18px; " class="but">Download Results</p>
                                   </span>
                                </div>
@@ -79,14 +80,15 @@
     </div>
     <div class="modal"></div>
 
-      <div id="dialogMinMax" style="display:none;" ><p>How do you want to optimize this attribute?</p></div>
-      <div id="dialogChart" style="display:none; height: 350px;width: 400px;">
-         <div id="chart" class="aGraph" style="width:350px;height:270px;">
-         
-         </div>
-         <form style="float: right;"><input type="number" id="ipcase"></form>
+      <div id="dialogChart" style="display:none; height: inherit;width: inherit;">
+      <div id="chart" class="aGraph" >
+
+      </div><!-- <p style="color: red;" id="errorCase">sdfg</p> -->
+      <form style="float: right;"><input type="number" id="ipcase"  placeholder="Flow #"></form> 
+      </div>
+
       <script
-         src="../static/js/mylinegraph.js" >
+         src="../static/js/end.js" >
       </script>
     <!-- js libraries -->
     

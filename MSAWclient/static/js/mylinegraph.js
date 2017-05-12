@@ -423,6 +423,7 @@ function LineGraph(argsMap) {
 			numAxisLabels = data.numAxisLabelsLinearScale;
 		}
 
+		//yAxisLeft = d3.svg.axis().scale(yLeft).ticks(numAxisLabels, tickFormatForLogScale).orient("left");
 		yAxisLeft = d3.svg.axis().scale(yLeft).ticks(numAxisLabels, tickFormatForLogScale).orient("left");
 	}
 	
@@ -478,7 +479,7 @@ function LineGraph(argsMap) {
 		x = d3.scale.linear().domain([data.startTime, data.endTime]).range([0, w]).nice();
 		
 		// create yAxis (with ticks)
-		xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(1);
+		xAxis = d3.svg.axis().tickFormat(d3.format("d")).scale(x).tickSize(-h).tickSubdivide(1);
 			// without ticks
 			//xAxis = d3.svg.axis().scale(x);
 	}

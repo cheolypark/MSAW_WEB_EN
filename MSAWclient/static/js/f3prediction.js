@@ -93,14 +93,6 @@ function removeElement(jsonArray, index)
     data["targetVariables"]=d;
 }
 
-$('#consoletextinputP').bind('input propertychange', function() {
-      //console.info(this.value);
-      data["targetVariables"]=JSON.parse(this.value);
-     // updateOutputAttribFromConsole();
-      //console.info(JSON.stringify(data));
-      
-});
-
 
 
 function runPrediction()
@@ -115,7 +107,7 @@ function runPrediction()
         if(itemFlow==0)
             alert("Number of item flows cannot be empty. Enter an integer.");
         else{
-            data["inputs"]["itemFlow"]=itemFlow;
+            data["inputs"]["itemFlows"]=itemFlow;
 
             var passcode=prompt("Please enter a unique code for this run.");
             if(passcode!=null)
@@ -157,7 +149,9 @@ function runPrediction()
     //console.info(JSON.stringify(data));
 
 }
+
 var processSets;
+var nSets;
 
 function getPrevPrediction(){
     var pass=prompt("Enter passcode to access your data.");
@@ -178,6 +172,8 @@ function getPrevPrediction(){
     // });
     d3.json(BACKEND_URL+"allprediction/"+pass,function(err, j2) {          
             processSets=j2.processSets;
+            //console.info(JSON.stringify(processSets[0]));
+            nSets=j2.processSets.length;
             getChartValues(j2);
             //setDownloadLink(j2.pathToCSV);
         
@@ -188,51 +184,37 @@ function getPrevPrediction(){
 }
 function getChartValues(j){
     targetVariable=j.processSets[0].targetVariables[0];
-    var caseValues={"values":[]};
+    console.info(JSON.stringify(targetVariable)+" targetVariable");
+
+    var pr=targetVariable.name.split('.')[0];
+
+    var caseValues=[];
     j.processSets.forEach(function(p){
+        console.info(p.ID);
         p.processes.forEach(function(pro){
-            pro.output.properties.forEach(function(att){
-                if(targetVariable==att.name){
-                    caseValues.values.push(att.value);
-                }
-            });
+            console.info(pro.ID);
+            if(pro.ID==pr)
+                pro.output.properties.forEach(function(att){
+                    //console.info();
+                    console.info(JSON.stringify(att));
+                       
+                    if(targetVariable.name==att.name){
+                       caseValues.push(parseFloat(att.value));
+                    }
+                });
         });
+    
     });
     console.info('chart: '+JSON.stringify(caseValues));
 
-    renderChart(caseValues.values);
-}
-function renderChart(caseValues)
-//function renderChart()
-{
-
     //caseValues=[2.5,4.34,7.654,5.234,5.23,4.23,3.23,3.1,4.12,7.234,5.23,4.123,3.12];
-    var no=caseValues.length;
-    var step=1;
-    step=(no<10 ? 1 : no/10);
-    console.info(step+" step");
-    console.info("renderchart");
-    var dataChart = {
-        "start": 1,
-        "end": no,
-        "step": step,
-        "names": ["Item Flow Number"],
-        "values": [caseValues]
-    };
+    var textX="Item Flow";
+    var textY=targetVariable.name;
 
-
-    $("#chart").html("");
-    var l1 = new LineGraph({
-        containerId: "chart",
-        data: dataChart
-    });
-
-
+    RenderGraph(caseValues,textY,textX);
     
-    // var x = document.getElementById('chartButton');
-    // x.style.display = 'block';
-    // var y = document.getElementById('downloadButton');
-    // y.style.display = 'block';
+    var x = $('#showButton').show();
+    var x = $('#downloadButton').show();
 }
 function setDownloadLink(pathToCSV)
 {
@@ -240,19 +222,24 @@ function setDownloadLink(pathToCSV)
 }
 function showChart()
 {
-        renderChart();
      $('#dialogChart').dialog({
             modal: true,
-            width: 400,
-            height: 405,
+            width: 550,
+            height: 530,
             dialogClass: "dlg-no-title",
 
             buttons:{
                  Select_case : function() {
-                    var caseId = $('#ipcase').val();
+                    var caseId = parseInt($('#ipcase').val());
                     console.info("case selected"+caseId);
-                    getCaseData(caseId);
-                    $(this).dialog("close"); 
+                    if(caseId<1 || caseId > nSets)
+                        $("p:last").text("Invalid item flow number.");
+                    else
+                    {
+                        getCaseData((caseId-1));
+                        $(this).dialog("close"); 
+                    }
+
 
                 },
                  Close : function() {
@@ -260,15 +247,14 @@ function showChart()
 
                 }
             }
-        }
-    ); 
+        }); 
      //getcaseanalysis
 }
 
 function getCaseData(caseId) {
             
-    allNodesData=processSets[caseId];
-    updateAttrib(allNodesData.processes);
+    var newProcD=processSets[caseId];
+    updateAttrib(newProcD.processes);
 
     update();
     console.info("Process Model updated for case: "+caseId);
@@ -279,24 +265,21 @@ function update() {
         .transition()
         .delay(500)
         .text(function(d) {
-            return d.name + ": "+d.value.substring(0,d.value.length-12);
+            return d.name + ": "+d.value;
         });
 
     attnode.data(attributesData)
         .transition()
         .duration(750)
         .styleTween("fill", function(d) {
-            if(d.group!=procNamesData[0].name)
                  return d3.interpolate("#ffffff", "#ffffcc");
-            else
-                return;
          });
 }
 
-function updateAttrib(allNodesData)
+function updateAttrib(newProcS)
 {
     var k=0;
-    allNodesData.forEach(function(v){
+    newProcS.forEach(function(v){
         // v.output.properties.forEach(function(v){
         //     attributesData[k++]=n;
         // });

@@ -268,7 +268,29 @@ div.heading {
    
 }
 
-
+path { 
+  stroke: steelblue;
+  stroke-width: 2;
+  fill: none;
+}
+ 
+.axis path,
+.axis line {
+	fill: steelblue;
+    opacity: 0.1;
+    border-top: 1px;
+    border-right: 1px;
+    border-right-color: black;
+    border-top-color: black; 
+	stroke: black;
+	stroke-width: 1;
+	shape-rendering: crispEdges;
+}
+.tick {
+    stroke: grey;
+    stroke-opacity: 0.7;
+    shape-rendering: crispEdges;
+}
 
 
 
@@ -325,22 +347,6 @@ span:hover>p.but {
     border-radius: inherit;
     /* fake conical gradients */
     background-image: -webkit-radial-gradient(  50%   0%, 10% 50%, hsla(0,0%,0%,.1) 0%, hsla(0,0%,0%,0) 100%),                        -webkit-radial-gradient(  50% 100%, 10% 50%, hsla(0,0%,0%,.1) 0%, hsla(0,0%,0%,0) 100%),                        -webkit-radial-gradient(   0%  50%, 50% 10%, hsla(0,0%,0%,.1) 0%, hsla(0,0%,0%,0) 100%),                        -webkit-radial-gradient( 100%  50%, 50% 06%, hsla(0,0%,0%,.1) 0%, hsla(0,0%,0%,0) 100%);
-}
-.button:before {
-    /*transform*/
-    -webkit-transform: rotate( 65deg);
-    -moz-transform: rotate( 65deg);
-    -ms-transform: rotate( 65deg);
-    -o-transform: rotate( 65deg);
-    transform: rotate( 65deg);
-}
-.button:after {
-    /*transform*/
-    -webkit-transform: rotate(-65deg);
-    -moz-transform: rotate(-65deg);
-    -ms-transform: rotate(-65deg);
-    -o-transform: rotate(-65deg);
-    transform: rotate(-65deg);
 }
 .button:active {
     border-top: 0px solid #dde1e7;

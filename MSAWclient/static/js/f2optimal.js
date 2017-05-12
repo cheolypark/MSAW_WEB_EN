@@ -149,6 +149,7 @@ function runOptimalCVF()
 
 }
 var processSets;
+var nSets;
 
 function getPrevAnalysis(){
     var pass=prompt("Enter passcode to access your data.");
@@ -170,6 +171,7 @@ function getPrevAnalysis(){
     d3.json(BACKEND_URL+"alloptimal/"+pass,function(err, j2) {          
             processSets=j2.processSets;
             //console.info(JSON.stringify(processSets[0]));
+            nSets=j2.processSets.length;
             getChartValues(j2);
             //setDownloadLink(j2.pathToCSV);
         
@@ -179,63 +181,39 @@ function getPrevAnalysis(){
     
 }
 function getChartValues(j){
-	targetVariable=j.processSets[0].targetVariables[0];
+    targetVariable=j.processSets[0].targetVariables[0];
     console.info(JSON.stringify(targetVariable)+" targetVariable");
 
     var pr=targetVariable.name.split('.')[0];
 
-	var caseValues={"values":[]};
-	j.processSets.forEach(function(p){
+    var caseValues=[];
+    j.processSets.forEach(function(p){
         console.info(p.ID);
-    	p.processes.forEach(function(pro){
-			console.info(pro.ID);
+        p.processes.forEach(function(pro){
+            console.info(pro.ID);
             if(pro.ID==pr)
                 pro.output.properties.forEach(function(att){
-				    //console.info();
+                    //console.info();
                     console.info(JSON.stringify(att));
                        
                     if(targetVariable.name==att.name){
-                       caseValues.values.push(att.value);
-				    }
-			     });
-		});
+                       caseValues.push(parseFloat(att.value));
+                    }
+                 });
+        });
     
-	});
-	console.info('chart: '+JSON.stringify(caseValues));
-
-    renderChart(caseValues);
-}
-function renderChart(caseValues)
-{
-
-    console.info(caseValues);
-    //caseValues=[2.5,4.34,7.654,5.234,5.23,4.23,3.23,3.1,4.12,7.234,5.23,4.123,3.12];
-    var no=caseValues.values.length;
-    var step=1;
-    step=(no<10 ? 1 : no/10);
-    console.info(step+" step");
-    console.info("renderchart");
-    var dataChart = {
-        "start": 1,
-        "end": no,
-        "step": step,
-        "names": ["Case Number"],
-        "values": [caseValues.values]
-    };
-
-
-    $("#chart").html("");
-    var l1 = new LineGraph({
-        containerId: "chart",
-        data: dataChart
     });
+    console.info('chart: '+JSON.stringify(caseValues));
 
+    //caseValues=[2.5,4.34,7.654,5.234,5.23,4.23,3.23,3.1,4.12,7.234,5.23,4.123,3.12];
+    var textX="Case Number";
+    var textY=targetVariable.name;
 
+    RenderGraph(caseValues,textY,textX);
     
-    // var x = document.getElementById('chartButton');
-    // x.style.display = 'block';
-    // var y = document.getElementById('downloadButton');
-    // y.style.display = 'block';
+    
+    var x = $('#showButton').show();
+    var x = $('#downloadButton').show();
 }
 function setDownloadLink(pathToCSV)
 {
@@ -243,35 +221,39 @@ function setDownloadLink(pathToCSV)
 }
 function showChart()
 {
-        renderChart();
      $('#dialogChart').dialog({
             modal: true,
-            width: 400,
-            height: 405,
+            width: 550,
+            height: 530,
             dialogClass: "dlg-no-title",
 
             buttons:{
-            	 Select_case : function() {
-				    var caseId = $('#ipcase').val();
+                 Select_case : function() {
+                    var caseId = parseInt($('#ipcase').val());
                     console.info("case selected"+caseId);
-                    getCaseData(caseId);
-                    $(this).dialog("close"); 
+                    if(caseId<1 || caseId > nSets)
+                        $("p:last").text("Invalid case number.");
+                    else
+                    {
+                        getCaseData((caseId-1));
+                        $(this).dialog("close"); 
+                    }
+
 
                 },
-            	 Close : function() {
+                 Close : function() {
                     $(this).dialog("close"); 
 
                 }
             }
-        }
-    ); 
+        }); 
      //getcaseanalysis
 }
 
 function getCaseData(caseId) {
             
-    allNodesData=processSets[caseId];
-    updateAttrib(allNodesData.processes);
+    var newProcD=processSets[caseId];
+    updateAttrib(newProcD.processes);
 
     update();
     console.info("Process Model updated for case: "+caseId);
@@ -282,24 +264,21 @@ function update() {
         .transition()
         .delay(500)
         .text(function(d) {
-            return d.name + ": "+d.value.substring(0,d.value.length-12);
+            return d.name + ": "+d.value;
         });
 
     attnode.data(attributesData)
         .transition()
         .duration(750)
         .styleTween("fill", function(d) {
-            if(d.group!=procNamesData[0].name)
                  return d3.interpolate("#ffffff", "#ffffcc");
-            else
-                return;
          });
 }
 
-function updateAttrib(allNodesData)
+function updateAttrib(newProcS)
 {
     var k=0;
-    allNodesData.forEach(function(v){
+    newProcS.forEach(function(v){
         // v.output.properties.forEach(function(v){
         //     attributesData[k++]=n;
         // });

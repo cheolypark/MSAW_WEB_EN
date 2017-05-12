@@ -36,6 +36,7 @@
                         var svgwidth = $("#svgdiv").width();
                    </script>
                    <script src="../static/js/common.js"></script>
+                   <script src="../static/js/newlinegraph.js"></script>
                    <script src="../static/js/f2optimal.js"></script>
                     </div>
                 </div>
@@ -57,10 +58,10 @@
                               <br>
 
                               <label for="displayCases">Number of cases to display:</label>
-                              <input type="number" style="width: 40px;" id="displayCases" value="2">
+                              <input type="number" style="width: 40px; height: 30px;" id="displayCases" value="2">
                               <br>
                               <label for="totalCases">Number of cases to run:</label>
-                              <input type="number" style="width: 40px;" id="totalCases" value="3">
+                              <input type="number" style="width: 40px;height: 30px;" id="totalCases" value="3">
                               <br>
                               <br>
                               
@@ -70,11 +71,12 @@
                                <p style=" font-size: 20px; " class="but">Get Previous Findings Data</p>
                                </span>
                                <br>
+                              
                               <div >
-                                 <span class="button" style="float: left; width: 45%;" onclick="showChart()">
+                                 <span id="showButton" class="button" style="display: none; float: left; width: 45%;" onclick="showChart()">
                                   <p style=" font-size: 18px; " class="but">Show Results</p>
                                   </span>
-                                 <span class="button" style="float: right; width: 50%;" onclick="downloadAnalysis()">
+                                 <span id="downloadButton" class="button" style="display: none; float: right; width: 50%;" onclick="downloadAnalysis()">
                                   <p style=" font-size: 18px; " class="but">Download Results</p>
                                   </span>
                                </div>
@@ -87,17 +89,12 @@
         </div>
     </div>
     <div class="modal"></div>
-
-      <div id="dialogMinMax" style="display:none;" ><p>How do you want to optimize this attribute?</p></div>
-      <div id="dialogChart" style="display:none; height: 350px;width: 400px;">
-         <div id="chart" class="aGraph" style="width:350px;height:270px;">
+      <div id="dialogChart" style="display:none; height: inherit;width: inherit;">
+         <div id="chart" class="aGraph" >
          
-         </div>
-         <form style="float: right;"><input type="number" id="ipcase"></form>
-      <script
-         src="../static/js/mylinegraph.js" >
-      </script>
-    <!-- js libraries -->
+         </div><!-- <p style="color: red;" id="errorCase">sdfg</p> -->
+         <form style="float: right;"><input type="number"  id="ipcase" placeholder="Case #"></form>
+      </div>
     
 </body>
 </html>

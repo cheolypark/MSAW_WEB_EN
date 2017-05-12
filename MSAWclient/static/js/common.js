@@ -372,9 +372,11 @@ function tick() {
             
     attnode
         .attr("x", function(d) {
+           // d.x= d.x - d.width / 2 + pad;
             return d.x - d.width / 2 + pad;
         })
         .attr("y", function(d) {
+           // d.y=d.y - d.height / 2 + pad;
             return d.y - d.height / 2 + pad;
         });
     group
@@ -405,10 +407,12 @@ function tick() {
         });
     label
         .attr("x", function(d) {
+           // d.x=d.x - d.width/2 +4;
             return d.x - d.width/2 +4;
         })
         .attr("y", function(d) { //return d.y;
             var h = this.getBBox().height;
+          //  d.y=d.y + h / 4;
             return d.y + h / 4;
         });
     labelH

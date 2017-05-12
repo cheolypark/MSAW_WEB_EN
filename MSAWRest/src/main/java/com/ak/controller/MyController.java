@@ -103,7 +103,7 @@ public class MyController implements ServletContextAware{
 	public @ResponseBody String getPredictionPM(@PathVariable("pass") String pass) {
 		logger.info("Get process model for prediction");
 		AIEngineHelper p=new AIEngineHelper();		
-		return p.getOptimalModelfromFile(pass);
+		return p.getPredictionModelfromFile(pass);
 	}
 
 	@RequestMapping(value = RestURIConstants.POST_getreasoning, method = RequestMethod.POST)
@@ -124,10 +124,10 @@ public class MyController implements ServletContextAware{
 	}
 
 	@RequestMapping(value = RestURIConstants.POST_prediction, method = RequestMethod.POST)
-	public @ResponseBody String postToPrediction(@RequestBody Map<String, Object> map) {
+	public @ResponseBody String postToPrediction(@RequestBody MProcessSet map) {
 		logger.info("prediction chart data");
 		AIEngineHelper aihelper=new AIEngineHelper();
-		return aihelper.runPrediction(ProjectConstants.getFilePath(context),map);
+		return aihelper.runPrediction(map);
 	}
 	@RequestMapping(value = RestURIConstants.POST_optimal, method = RequestMethod.POST)
 	public @ResponseBody String postToOptimal(@RequestBody MProcessSet map) {

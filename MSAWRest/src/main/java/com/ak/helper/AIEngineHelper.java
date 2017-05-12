@@ -23,12 +23,70 @@ import msaw.sim.core.MProcessSet;
 
 public class AIEngineHelper {
 
-	public String runPrediction(String path, Map<String, Object> map) {
+	public String runPrediction(final MProcessSet map) {
 		// TODO Auto-generated method stub
 
+		System.out.println(map.toString());
+		
+		final String pass=map.passcode;
+		File file=new File(FilePaths.F3_PRE_PROCESSSETS()+"prediction-"+pass+".txt");
+		//String s=file.getAbsolutePath();
+		if(!file.exists())
+		{
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					new Fun3_prediction().startPrediction(map, pass);;
+				}
+			}).start();
 			return "{\"success\":1}";
+		}
+		else
+		{
+			return "{\"success\":2}";
+		}
 
+	}public String getPredictionModelfromFile(String pass)
+	{
+		String s="";
+		try{
+			File optFile = new File(FilePaths.F3_PRE_PROCESSSETS()+"prediction-"+pass+".txt");
+	        if (!optFile.exists()) {
+	        	 //does not exist
+	        }
+
+	        System.out.println(pass);
+	        System.out.println(optFile.exists());
+	        System.out.println(optFile);
+	        FileReader fr = new FileReader(optFile.getAbsoluteFile());
+	        BufferedReader br= new BufferedReader(fr);
+	        String sCurrentLine="";
+	        while ((sCurrentLine = br.readLine()) != null) {
+				s=s+(sCurrentLine);
+			}
+	        System.out.println(s);
+	        br.close();
+	        fr.close();
+	        
+	        new JSONObject(s);
+	        return s;
+        
+	    } 
+		catch (IOException e){
+			e.printStackTrace();
+			 //error in file.
+		}
+		catch( JSONException e){
+	    	e.printStackTrace();
+
+			
+	    }
+		return s;
+	
 	}
+	
 	
 	public String runOptimal(final MProcessSet map) {
 		// TODO Auto-generated method stub
