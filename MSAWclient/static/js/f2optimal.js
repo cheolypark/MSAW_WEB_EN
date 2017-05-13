@@ -168,13 +168,17 @@ function getPrevAnalysis(){
     //         renderChart();
     //     }
     // });
-    d3.json(BACKEND_URL+"alloptimal/"+pass,function(err, j2) {          
-            processSets=j2.processSets;
-            //console.info(JSON.stringify(processSets[0]));
-            nSets=j2.processSets.length;
-            getChartValues(j2);
-            //setDownloadLink(j2.pathToCSV);
-        
+    d3.json(BACKEND_URL+"alloptimal/"+pass,function(err, j2) {    
+            console.info(JSON.stringify(j2));
+            if(j2.ID=='nope')
+                alert('Analysis for this passcode does not exist or is in process.');
+            else{
+                processSets=j2.processSets;
+                //console.info(JSON.stringify(processSets[0]));
+                nSets=j2.processSets.length;
+                getChartValues(j2);
+                //setDownloadLink(j2.pathToCSV);
+            }
     });
 
    

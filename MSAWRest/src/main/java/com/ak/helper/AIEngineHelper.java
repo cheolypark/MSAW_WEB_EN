@@ -60,7 +60,7 @@ public class AIEngineHelper {
 		try{
 			File optFile = new File(FilePaths.F3_PRE_PROCESSSETS()+"prediction-"+pass+".txt");
 	        if (!optFile.exists()) {
-	        	 //does not exist
+	        	 return "{\"ID\":\"nope\"}";//does not exist
 	        }
 
 	        System.out.println(pass);
@@ -122,7 +122,7 @@ public class AIEngineHelper {
 		try{
 			File optFile = new File(FilePaths.F2_OPT_PROCESSSETS()+"optimization-"+pass+".txt");
 	        if (!optFile.exists()) {
-	        	 //does not exist
+	        	 return "{\"ID\":\"nope\"}";//does not exist
 	        }
 
 	        System.out.println(pass);
