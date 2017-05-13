@@ -153,8 +153,9 @@ function runPrediction()
 var processSets;
 var nSets;
 
+var pass;
 function getPrevPrediction(){
-    var pass=prompt("Enter passcode to access your data.");
+    pass=prompt("Enter passcode to access your data.");
     //get json for chart.
     //chart se select kar ke get attribs
 
@@ -216,9 +217,10 @@ function getChartValues(j){
     var x = $('#showButton').show();
     var x = $('#downloadButton').show();
 }
-function setDownloadLink(pathToCSV)
+function download()
 {
-    $('#downloadButton').attr("href", pathToCSV);
+    window.location.replace(DOWNLOAD_URL_prediction+pass);
+    //$('#downloadButton').attr("href", pathToCSV);
 }
 function showChart()
 {

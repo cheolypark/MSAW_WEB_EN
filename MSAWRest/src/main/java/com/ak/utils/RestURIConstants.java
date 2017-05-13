@@ -22,13 +22,14 @@ public class RestURIConstants {
 
 	public static final String POST_yo = "/yo";
 	public static final String GET_testing = "/test";
+	public static final String GET_testDownload = "/testdownload";
 	
 	
 	public static final String GET_optimalAllCases = "/alloptimal/{pass}";
 	public static final String GET_predictionAllCases = "/allprediction/{pass}";
 	
 	public static final String DOWNLOAD_csv_prediction = "/downloadprediction/{pass}";
-	public static final String DOWNLOAD_csv_optimal = "/downloadoptimal/optimal-{pass}.csv";
+	public static final String DOWNLOAD_csv_optimal = "/downloadoptimal/{pass}";
 	
 	
 	public static final String DUMMY_EMP = "/yo";

@@ -27,10 +27,11 @@ public class AIEngineHelper {
 		// TODO Auto-generated method stub
 
 		System.out.println(map.toString());
-		
+		try{
 		final String pass=map.passcode;
 		File file=new File(FilePaths.F3_PRE_PROCESSSETS()+"prediction-"+pass+".txt");
 		//String s=file.getAbsolutePath();
+		
 		if(!file.exists())
 		{
 			new Thread(new Runnable() {
@@ -47,8 +48,13 @@ public class AIEngineHelper {
 		{
 			return "{\"success\":2}";
 		}
+		}catch (Exception e) {
+			// TODO: handle exception
+			return "{\"success\":2}";
+		}
 
-	}public String getPredictionModelfromFile(String pass)
+	}
+	public String getPredictionModelfromFile(String pass)
 	{
 		String s="";
 		try{
@@ -74,15 +80,10 @@ public class AIEngineHelper {
 	        return s;
         
 	    } 
-		catch (IOException e){
+		catch (Exception e){
 			e.printStackTrace();
 			 //error in file.
 		}
-		catch( JSONException e){
-	    	e.printStackTrace();
-
-			
-	    }
 		return s;
 	
 	}
@@ -92,7 +93,7 @@ public class AIEngineHelper {
 		// TODO Auto-generated method stub
 		
 		System.out.println(map.toString());
-		
+		try{
 		final String pass=map.passcode;
 		File file=new File(FilePaths.F2_OPT_PROCESSSETS()+"optimization-"+pass+".txt");
 		//String s=file.getAbsolutePath();
@@ -108,10 +109,12 @@ public class AIEngineHelper {
 			}).start();
 			return "{\"success\":1}";
 		}
-		else
-		{
+		}
+		catch (Exception e) {
+		
 			return "{\"success\":2}";
 		}
+		return "";
 	}
 	public String getOptimalModelfromFile(String pass)
 	{
@@ -139,15 +142,13 @@ public class AIEngineHelper {
 	        return s;
         
 	    } 
-		catch (IOException e){
+		catch (Exception e){
 			e.printStackTrace();
 			 //error in file.
 		}
-		catch( JSONException e){
-	    	e.printStackTrace();
 
 			
-	    }
+	    
 		return s;
 	
 	}
@@ -160,6 +161,11 @@ public class AIEngineHelper {
 	
 	public String runSensitivity(MProcessSet map){
 		return new Fun4_sensitivity().getSensitivity(map);
+	}
+	public String testFile() {
+		// TODO Auto-generated method stub
+		return new Fun1_reas().testFile();
+		
 	}
 
 	

@@ -49,10 +49,10 @@
         <dependent-module archiveName="mysql-connector-java-3.0.17-ga-bin.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MSAW_SIM/lib/mysql-connector-java-3.0.17-ga-bin.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="MSAW_SIM.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/MSAW_SIM/MSAW_SIM">
+        <dependent-module archiveName="MSAW_ENGINE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/MSAW_ENGINE/MSAW_ENGINE">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="MSAW_ENGINE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/MSAW_ENGINE/MSAW_ENGINE">
+        <dependent-module archiveName="MSAW_SIM.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/MSAW_SIM/MSAW_SIM">
             <dependency-type>uses</dependency-type>
         </dependent-module>
 		<property name="java-output-path" value="target/classes"/>

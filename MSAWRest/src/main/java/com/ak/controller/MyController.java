@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -27,6 +28,7 @@ import org.json.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +46,7 @@ import com.ak.model.ProcessModel;
 import com.ak.utils.ProjectConstants;
 import com.ak.utils.RestURIConstants;
 
+import msaw.engine.helper.FilePaths;
 import msaw.engine.helper.Fun0_sim;
 import msaw.sim.core.MProcessSet;
 import msaw.sim.core.MProperty;
@@ -51,9 +54,9 @@ import msaw.sim.core.MProperty;
 @Controller
 public class MyController implements ServletContextAware{
 	@Autowired
-    ServletContext context; 
+	ServletContext context; 
 	private static final Logger logger = LoggerFactory.getLogger(MyController.class);	
-	
+
 	@RequestMapping(value = RestURIConstants.GET_simulation, method = RequestMethod.GET)
 	public @ResponseBody String getProcessModel() {
 		logger.info("Get process model");
@@ -61,7 +64,7 @@ public class MyController implements ServletContextAware{
 		return new Fun0_sim().getSimulation();
 	}
 
-	
+
 
 	@RequestMapping(value = RestURIConstants.GET_testing, method = RequestMethod.GET)
 	public @ResponseBody String test(){
@@ -69,13 +72,10 @@ public class MyController implements ServletContextAware{
 		System.out.println("dgfghjkjhgfdffghbjkjhgfdfghjk");
 		String ee="yo";
 		try{
-			File dir=new File("yo/");
-			ee=dir.getAbsolutePath();
-			if(!dir.exists()){
-				ee=ee+dir.mkdir();
-			}
+			AIEngineHelper p=new AIEngineHelper();		
+			ee=ee+p.testFile();
 			//new Fun2_optimal().startOptimalValueFind(new MProcessSet(), "msaw");
-			
+
 		}
 		catch(Exception e){
 			ee=e.getMessage();
@@ -90,7 +90,7 @@ public class MyController implements ServletContextAware{
 		book.booknames.add(null);
 		return book;
 	}
-	
+
 	@RequestMapping(value = RestURIConstants.GET_optimalAllCases, method = RequestMethod.GET)
 	public @ResponseBody String getOptimalPM(@PathVariable("pass") String pass) {
 		logger.info("Get process model for optimal");
@@ -113,7 +113,7 @@ public class MyController implements ServletContextAware{
 		AIEngineHelper p=new AIEngineHelper();		
 		//return "fghhjhghgjhhkhjgh";
 		return p.runReasoning(map);
-		
+
 	}
 	@RequestMapping(value = RestURIConstants.POST_getsensitivity, method = RequestMethod.POST)
 	public @ResponseBody String postGetSensitivity(@RequestBody MProcessSet map) {
@@ -133,32 +133,43 @@ public class MyController implements ServletContextAware{
 		logger.info("prediction chart data");
 		System.out.println("fxdghjbn vcfghjbnvcfgyjh");
 		System.out.println(map.toString());
-		
-		
+
+
 		AIEngineHelper aihelper=new AIEngineHelper();
 		return aihelper.runOptimal(map);
 		//return map.toString();
 	}
 
 	@RequestMapping(value = RestURIConstants.DOWNLOAD_csv_optimal, method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<String> downloadCSV(@PathVariable("pass") String pass ) {
- 
-//        String csvFileName = "books.csv";
- 
-        HttpHeaders headers = new HttpHeaders();
-	    headers.add("Content-Type", "text/csv");
-	   // headers.add("Content-Disposition", "attachment; filename=\""+csvFileName+"\"");
-	    String data2="1,2,3";
-	    return new ResponseEntity<String>(data2,headers,HttpStatus.OK);
-    }
+	public @ResponseBody FileSystemResource downloadCSVoptimal(@PathVariable("pass") String pass,HttpServletResponse response ) throws Exception {
+		response.setContentType("application/csv");      
+        response.setHeader("Content-Disposition", "attachment; filename=OptimizationResultSets-"+pass+".csv"); 
+		return new FileSystemResource(new File(FilePaths.F2_OPT_CSV()+"optimization-"+pass+".csv"));
+
+	}
+	@RequestMapping(value = RestURIConstants.GET_testDownload, method = RequestMethod.GET)
+	public @ResponseBody FileSystemResource downloadtest(HttpServletResponse response ) throws Exception {
+		response.setContentType("application/csv");      
+        response.setHeader("Content-Disposition", "attachment; filename=yo.csv"); 
+		return new FileSystemResource(new File(FilePaths.F2_OPT_CSV()+ "lala.csv"));
+
+	}
+	
+	@RequestMapping(value = RestURIConstants.DOWNLOAD_csv_prediction, method = RequestMethod.GET)
+	public @ResponseBody FileSystemResource downloadCSVprediction(@PathVariable("pass") String pass,HttpServletResponse response ) throws Exception {
+		response.setContentType("application/csv");      
+        response.setHeader("Content-Disposition", "attachment; filename=PredictionResultSets-"+pass+".csv"); 
+		return new FileSystemResource(new File(FilePaths.F3_PRE_CSV()+"prediction-"+pass+".csv"));
+
+	}
 
 
-	
-	
+
+
 	@Override
 	public void setServletContext(ServletContext arg0) {
 		// TODO Auto-generated method stub
 		this.context=arg0;
 	}
-	
+
 }
